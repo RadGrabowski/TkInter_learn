@@ -1,6 +1,7 @@
 import numpy as np
 from math import sin, cos, radians
 import tkinter as tk
+import time
 
 
 def opening_bracket(x, y):
@@ -29,30 +30,33 @@ def show_matrix(m, shux, shuy):
 def print_result():
     global canvas
     canvas.delete('all')
-    d = int(distanceEntry.get())
-    a = radians(int(angleEntry.get()))
-    d2 = int(distanceEntry2.get())
-    a2 = radians(int(angleEntry2.get()))
-    rot = rotVal.get()
-    trans = transVal.get()
-    trans2 = transVal2.get()
-    first_matrix = calculate(rot, trans, d, a)
-    second_matrix = calculate(rot, trans2, d2, a2)
-    final_matrix = np.around(np.dot(first_matrix, second_matrix), decimals=3)
-    opening_bracket(0, 0)
-    show_matrix(first_matrix, 0, 0)
-    closing_bracket(0, 0)
-    canvas.create_text(160, 73, fill='black', text='x', font=5)
-    opening_bracket(160, 0)
-    show_matrix(second_matrix, 160, 0)
-    closing_bracket(160, 0)
-    canvas.create_text(320, 73, fill='black', text='=', font=5)
-    opening_bracket(320, 0)
-    show_matrix(final_matrix, 320, 0)
-    closing_bracket(320, 0)
-    canvas.create_text(80, 140, fill='darkblue', text='A1', font=5)
-    canvas.create_text(240, 140, fill='darkblue', text='A2', font=5)
-    canvas.create_text(400, 140, fill='darkblue', text='T', font=5)
+    try:
+        d = int(distanceEntry.get())
+        a = radians(int(angleEntry.get()))
+        d2 = int(distanceEntry2.get())
+        a2 = radians(int(angleEntry2.get()))
+        rot = rotVal.get()
+        trans = transVal.get()
+        trans2 = transVal2.get()
+        first_matrix = calculate(rot, trans, d, a)
+        second_matrix = calculate(rot, trans2, d2, a2)
+        final_matrix = np.around(np.dot(first_matrix, second_matrix), decimals=3)
+        opening_bracket(0, 0)
+        show_matrix(first_matrix, 0, 0)
+        closing_bracket(0, 0)
+        canvas.create_text(160, 73, fill='black', text='x', font=5)
+        opening_bracket(160, 0)
+        show_matrix(second_matrix, 160, 0)
+        closing_bracket(160, 0)
+        canvas.create_text(320, 73, fill='black', text='=', font=5)
+        opening_bracket(320, 0)
+        show_matrix(final_matrix, 320, 0)
+        closing_bracket(320, 0)
+        canvas.create_text(80, 140, fill='darkblue', text='A1', font=5)
+        canvas.create_text(240, 140, fill='darkblue', text='A2', font=5)
+        canvas.create_text(400, 140, fill='darkblue', text='T', font=5)
+    except ValueError:
+        canvas.create_text(280, 80, fill='red', text='Wrong distance input!', font=('Purisa', 40))
 
 
 def calculate(r, t, p, q):
