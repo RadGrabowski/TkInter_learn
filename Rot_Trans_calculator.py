@@ -4,20 +4,20 @@ import tkinter as tk
 import time
 
 
-def opening_bracket(x, y):
+def opening_bracket(x, y):  # creates line imitating opening bracket
     global canvas
     canvas.create_line(10 + x, 30 + y, 20 + x, 30 + y, fill='black')
     canvas.create_line(10 + x, 30 + y, 10 + x, 120 + y, fill='black')
     canvas.create_line(10 + x, 120 + y, 20 + x, 120 + y, fill='black')
 
 
-def closing_bracket(x, y):
+def closing_bracket(x, y):  # creates line imitating closing bracket
     canvas.create_line(150 + x, 30 + y, 140 + x, 30 + y, fill='black')
     canvas.create_line(150 + x, 30 + y, 150 + x, 120 + y, fill='black')
     canvas.create_line(150 + x, 120 + y, 140 + x, 120 + y, fill='black')
 
 
-def show_matrix(m, shux, shuy):
+def show_matrix(m, shux, shuy):  # prints the values of the matrix
     piy = 45
     for num in range(4):
         pix = 30
@@ -27,7 +27,7 @@ def show_matrix(m, shux, shuy):
         piy += 20
 
 
-def print_result():
+def print_result():  # displays the final result after pressing the button
     global canvas
     canvas.delete('all')
     try:
@@ -59,7 +59,7 @@ def print_result():
         canvas.create_text(280, 80, fill='red', text='Wrong distance input!', font=('Purisa', 40))
 
 
-def calculate(r, t, p, q):
+def calculate(r, t, p, q):  # performs mathematical operations
     if t == 1:
         trans_array = np.array([[1, 0, 0, p],
                                 [0, 1, 0, 0],
@@ -94,11 +94,13 @@ def calculate(r, t, p, q):
     return result_array
 
 
+# tkinter setup, main window, frames, image, button, entries etc.
 window = tk.Tk()
 window.title('Rotations and translations calculator')
 window.geometry('580x400-20-200')
 window['padx'] = 5
 window['pady'] = 15
+
 
 window.columnconfigure(0, weight=1)
 window.columnconfigure(1, weight=5)
@@ -156,7 +158,7 @@ distanceFrame2 = tk.LabelFrame(window, text='Distance 2')
 distanceFrame2.grid(row=2, column=4, sticky='swe')
 distanceEntry2 = tk.Entry(distanceFrame2, width=5)
 distanceEntry2.grid(row=0, column=0)
-angleFrame2 = tk.LabelFrame(window, text='Angle 1')
+angleFrame2 = tk.LabelFrame(window, text='Angle 2')
 angleFrame2.grid(row=3, column=4, sticky='nwe')
 angleEntry2 = tk.Spinbox(angleFrame2, width=5, values=(-180, -90, -60, -45, -30, 0, 30, 45, 60, 90, 180))
 angleEntry2.grid(row=1, column=0)
@@ -168,4 +170,7 @@ canvas.grid(row=4, column=0, columnspan=9, sticky='sew')
 imag = tk.PhotoImage(file='rotate-3d-images1.png')
 imgLabel = tk.Label(window, image=imag).grid(row=0, column=7, rowspan=4, sticky='e')
 
+window.update()
+window.minsize(580, 400)
+window.maxsize(580, 400)
 window.mainloop()
